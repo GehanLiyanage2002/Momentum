@@ -1,0 +1,40 @@
+# /.github/workflows/ci-pipeline.yml
+
+name: Momentum CI Pipeline (Build & Push)
+
+# Trigger this workflow whenever code is pushed to the 'main' branch
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push-to-acr:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout the code from the repository
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Log into your Azure Container Registry
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    # 3. Build and Push the Backend Image
+    # Notice we tag it with github.sha (a unique ID for this specific code commit)
+    - name: Build and Push Backend
+      run: |
+        cd auth-service
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }} .
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }}
+
+    # 4. Build and Push the Frontend Image
+    - name: Build and Push Frontend
+      run: |
+        cd frontend
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }} .
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }}
