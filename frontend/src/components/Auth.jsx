@@ -10,7 +10,7 @@ export default function Auth({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const endpoint = isLogin ? '/login' : '/register';
-    const url = `http://localhost:5000/api/auth${endpoint}`;
+    const url = `http://48.194.100.231/api/auth${endpoint}`;
 
     try {
       const response = await axios.post(url, { email, password });

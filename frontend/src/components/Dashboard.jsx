@@ -19,7 +19,7 @@ export default function Dashboard({ handleLogout }) {
 
   const fetchEntries = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/entries', getAuthHeader());
+      const res = await axios.get('http://48.194.100.231/api/entries', getAuthHeader());
       setEntries(res.data);
     } catch (err) {
       console.error("Failed to fetch entries", err);
@@ -34,12 +34,12 @@ export default function Dashboard({ handleLogout }) {
     try {
       if (editingId) {
         // UPDATE existing entry
-        const res = await axios.put(`http://localhost:5000/api/entries/${editingId}`, { text, mood }, getAuthHeader());
+        const res = await axios.put(`http://48.194.100.231/api/entries/${editingId}`, { text, mood }, getAuthHeader());
         setEntries(entries.map(ent => ent._id === editingId ? res.data : ent));
         setEditingId(null);
       } else {
         // CREATE new entry
-        const res = await axios.post('http://localhost:5000/api/entries', { text, mood }, getAuthHeader());
+        const res = await axios.post('http://48.194.100.231/api/entries', { text, mood }, getAuthHeader());
         setEntries([res.data, ...entries]); // Add to top of list
       }
       // Reset form
@@ -54,7 +54,7 @@ export default function Dashboard({ handleLogout }) {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this moment?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/entries/${id}`, getAuthHeader());
+      await axios.delete(`http://48.194.100.231/api/entries/${id}`, getAuthHeader());
       setEntries(entries.filter(ent => ent._id !== id));
     } catch (err) {
       console.error("Failed to delete entry", err);
