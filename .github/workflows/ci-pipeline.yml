@@ -34,6 +34,6 @@ jobs:
     # 4. Build and Push the Frontend Image
     - name: Build and Push Frontend
       run: |
-        cd Frontend
+        cd frontend
         docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }} -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:latest .
         docker push -a ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend
