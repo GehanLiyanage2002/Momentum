@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: YOUR_ACR_NAME.azurecr.io/momentum-frontend:latest
+        image: momentumregistryxyz123.azurecr.io/momentum-frontend:latest
         ports:
         - containerPort: 80
 ---
