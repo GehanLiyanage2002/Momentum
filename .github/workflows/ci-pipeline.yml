@@ -28,7 +28,7 @@ jobs:
     # Notice we tag it with github.sha (a unique ID for this specific code commit)
     - name: Build and Push Backend
       run: |
-        cd auth-service
+        cd Backend
         docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }} .
         docker push ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }}
 
