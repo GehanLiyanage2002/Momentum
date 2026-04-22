@@ -25,16 +25,15 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
 
     # 3. Build and Push the Backend Image
-    # Notice we tag it with github.sha (a unique ID for this specific code commit)
     - name: Build and Push Backend
       run: |
         cd Backend
-        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }} .
-        docker push ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }}
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:${{ github.sha }} -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend:latest .
+        docker push -a ${{ secrets.ACR_LOGIN_SERVER }}/momentum-backend
 
     # 4. Build and Push the Frontend Image
     - name: Build and Push Frontend
       run: |
-        cd frontend
-        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }} .
-        docker push ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }}
+        cd Frontend
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:${{ github.sha }} -t ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend:latest .
+        docker push -a ${{ secrets.ACR_LOGIN_SERVER }}/momentum-frontend
