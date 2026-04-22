@@ -15,15 +15,16 @@ spec:
       containers:
       - name: backend
         # Replace with your actual ACR login server
-        image: YOUR_ACR_NAME.azurecr.io/momentum-backend:latest
+        image: momentumregistryxyz123.azurecr.io/momentum-backend:latest
         ports:
         - containerPort: 5000
         env:
         # For now, we will hardcode secrets. Later, we will use Kubernetes Secrets for security!
         - name: MONGO_URI
-          value: "mongodb+srv://<your-atlas-username>:<your-atlas-password>@cluster0.mongodb.net/momentum?retryWrites=true&w=majority"
+          value: "mongodb+srv://donliyanage2002_db_user:Ui1QUon6MJNglZJP@cluster1.mongodb.net/momentum?retryWrites=true&w=majority"
         - name: JWT_SECRET
-          value: "super_secret_key_change_this_in_production"
+          value: "5a70b7b18cff9a692487d735b0d93c276d6c41b0dbe858d286357f8e6319f15c"
+          
 ---
 apiVersion: v1
 kind: Service
