@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: momentum-backend
+spec:
+  replicas: 1 # Number of pods to run
+  selector:
+    matchLabels:
+      app: momentum-backend
+  template:
+    metadata:
+      labels:
+        app: momentum-backend
+    spec:
+      containers:
+      - name: backend
+        # Replace with your actual ACR login server
+        image: YOUR_ACR_NAME.azurecr.io/momentum-backend:latest
+        ports:
+        - containerPort: 5000
+        env:
+        # For now, we will hardcode secrets. Later, we will use Kubernetes Secrets for security!
+        - name: MONGO_URI
+          value: "mongodb+srv://<your-atlas-username>:<your-atlas-password>@cluster0.mongodb.net/momentum?retryWrites=true&w=majority"
+        - name: JWT_SECRET
+          value: "super_secret_key_change_this_in_production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: momentum-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer # This provisions an Azure Public IP!

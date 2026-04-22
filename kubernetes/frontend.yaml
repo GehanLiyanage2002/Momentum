@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: momentum-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: momentum-frontend
+  template:
+    metadata:
+      labels:
+        app: momentum-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: YOUR_ACR_NAME.azurecr.io/momentum-frontend:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: momentum-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer # This gives your frontend a Public IP!
