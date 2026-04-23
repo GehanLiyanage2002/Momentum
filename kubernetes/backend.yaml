@@ -21,7 +21,7 @@ spec:
         env:
         # For now, we will hardcode secrets. Later, we will use Kubernetes Secrets for security!
         - name: MONGO_URI
-          value: "mongodb+srv://admin:Ui1QUon6MJNglZJP@cluster1.abcde.mongodb.net/momentum?retryWrites=true&w=majority"
+          value: "mongodb+srv://admin:7iWD2dpYLEHr_aX@cluster1.uweogy2.mongodb.net/momentum?retryWrites=true&w=majority"
                   
         - name: JWT_SECRET
           value: "5a70b7b18cff9a692487d735b0d93c276d6c41b0dbe858d286357f8e6319f15c"
